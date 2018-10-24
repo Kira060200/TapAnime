@@ -20,6 +20,11 @@ Right now, it has only the single-player mode(you are asked a seris of questions
 
 ### Screenshots
 
+[![screenshot](https://github.com/Kira060200/TapAnime/blob/master/login.jpeg)](https://github.com/Kira060200/TapAnime/blob/master/login.jpeg)
+[![screenshot](https://github.com/Kira060200/TapAnime/blob/master/signup.jpeg)](https://github.com/Kira060200/TapAnime/blob/master/signup.jpeg)
+[![screenshot](https://github.com/Kira060200/TapAnime/blob/master/menu.jpeg)](https://github.com/Kira060200/TapAnime/blob/master/menu.jpeg)
+[![screenshot](https://github.com/Kira060200/TapAnime/blob/master/menufragment.jpeg)](https://github.com/Kira060200/TapAnime/blob/master/menufragment.jpeg)
+[![screenshot](https://github.com/Kira060200/TapAnime/blob/master/training.jpeg)](https://github.com/Kira060200/TapAnime/blob/master/training.jpeg)
 
 
 ### Documentation
