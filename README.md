@@ -5,7 +5,7 @@
 ### Features
 
 An android application dedicated to all anime lovers. 
-The app contaisn 3 main functions:
+The app contains 3 main functions:
 
 *login and sign up
 
