@@ -1,6 +1,6 @@
 # TapAnime
 
-**TapAnime** is a free, light-weight android application designed for anime fans and otakus! It's a small app that contains general knowledge questions about the msot popular anime of all time.
+**TapAnime** is a free, light-weight android application designed for anime fans and otakus! It's a small app that contains general knowledge questions about the most popular anime of all time.
 
 ### Features
 
