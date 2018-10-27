@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Training extends AppCompatActivity {
     boolean ok=false;
     boolean correct=false;
     boolean clicked=false;
+    boolean exit=false;
     int score=0;
     int round=0;
     int time=15;
@@ -57,6 +59,16 @@ public class Training extends AppCompatActivity {
         Thread checkThread = new Thread(new recall());
         checkThread.start();
         new ServerTime().execute();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            exit=true;
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
     public void setRound() {
         TextView messageView = (TextView)findViewById(R.id.Roundboard);
@@ -137,8 +149,8 @@ public class Training extends AppCompatActivity {
         btn3.setClickable(false);
     }
     public class recall implements Runnable{
-        public void run(){
-            while(clicked==false && time>0){
+        public void run() {
+            while (clicked == false && time > 0 && exit == false) {
 
             }
             try {
@@ -147,25 +159,26 @@ public class Training extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if(round<10) {
-                Intent intent = new Intent(Training.this, Training.class);
-                intent.putExtra(Menu.EXTRA_MESSAGE, name);
-                Bundle bundle = new Bundle();
-                bundle.putInt("ScoreVariableName", score);
-                bundle.putInt("RoundVariableName", round);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
-            }
-            else{
-                Intent intent = new Intent(Training.this, EndRounds.class);
-                intent.putExtra(Menu.EXTRA_MESSAGE, name);
-                Bundle bundle = new Bundle();
-                bundle.putInt("ScoreVariableName", score);
-                bundle.putInt("RoundVariableName", round);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+            if (exit == false) {
+                if (round < 10) {
+                    Intent intent = new Intent(Training.this, Training.class);
+                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ScoreVariableName", score);
+                    bundle.putInt("RoundVariableName", round);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(Training.this, EndRounds.class);
+                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ScoreVariableName", score);
+                    bundle.putInt("RoundVariableName", round);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
             }
         }
     }

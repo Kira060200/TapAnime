@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textMatch"
         android:layout_width="134dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textLost"
         android:layout_width="132dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -28,10 +28,10 @@
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textWin" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textWin"
         android:layout_width="133dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -40,10 +40,10 @@
         android:textColor="@android:color/holo_green_light"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textMatch" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textRatio"
         android:layout_width="127dp"
         android:layout_height="78dp"
         android:layout_marginStart="8dp"
@@ -55,11 +55,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toEndOf="@+id/textWin"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/buttonSearch"
         android:layout_width="183dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
