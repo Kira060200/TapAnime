@@ -35,6 +35,15 @@ public class MenuFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Button Quickbtn = (Button) v.findViewById(R.id.button3);
+        Quickbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), StatsQuickPlay.class);
+                intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                startActivity(intent);
+            }
+        });
                 return v;
     }
 }
