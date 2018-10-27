@@ -23,6 +23,7 @@
         <activity android:name=".Menu" />
         <activity android:name=".Social" />
         <activity android:name=".QuickPlay"/>
+        <activity android:name=".StatsQuickPlay"/>
         <activity android:name=".Training" />
         <activity android:name=".EndRounds" />
         <activity android:name=".HelpActivity" />

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class StatsQuickPlay extends AppCompatActivity {
     String name;
-    String question="Question Not Found?",answer1,answer2,answer3,CorrectAnswer;
     public static final String EXTRA_MESSAGE = "message";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
