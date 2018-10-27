@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,8 +23,8 @@ public class QuickPlay extends AppCompatActivity {
     boolean ok=false;
     boolean correct=false;
     boolean clicked=false;
+    boolean exit=false;
     int score=0;
-    int score2=0;
     int round=0;
     int time=15;
     String question="Question Not Found?",answer1,answer2,answer3,CorrectAnswer;
@@ -48,7 +49,7 @@ public class QuickPlay extends AppCompatActivity {
 
         }
         round++;
-        setScore1();
+        setScore();
         setRound();
         setQuestion();
         setAnswer1();
@@ -57,15 +58,24 @@ public class QuickPlay extends AppCompatActivity {
         Thread checkThread = new Thread(new recall());
         checkThread.start();
         new ServerTime().execute();
-        new FOESCORE().execute();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            exit=true;
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
     public void setRound() {
         TextView messageView = (TextView)findViewById(R.id.Roundboard);
         messageView.setText("Round:"+round);
     }
-    public void setScore1() {
-        TextView ScoreView = (TextView)findViewById(R.id.Scoreboard);
-        ScoreView.setText(name+": "+score);
+    public void setScore() {
+        TextView messageView = (TextView)findViewById(R.id.Scoreboard);
+        messageView.setText("Score:"+score);
     }
     public void setQuestion() {
         TextView messageView = (TextView)findViewById(R.id.textQuestion);
@@ -138,8 +148,8 @@ public class QuickPlay extends AppCompatActivity {
         btn3.setClickable(false);
     }
     public class recall implements Runnable{
-        public void run(){
-            while(clicked==false && time>0){
+        public void run() {
+            while (clicked == false && time > 0 && exit == false) {
 
             }
             try {
@@ -148,57 +158,26 @@ public class QuickPlay extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            if(round<10) {
-                Intent intent = new Intent(QuickPlay.this, Training.class);
-                intent.putExtra(Menu.EXTRA_MESSAGE, name);
-                Bundle bundle = new Bundle();
-                bundle.putInt("ScoreVariableName", score);
-                bundle.putInt("RoundVariableName", round);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
-            }
-            else{
-                Intent intent = new Intent(QuickPlay.this, EndRounds.class);
-                intent.putExtra(Menu.EXTRA_MESSAGE, name);
-                Bundle bundle = new Bundle();
-                bundle.putInt("ScoreVariableName", score);
-                bundle.putInt("RoundVariableName", round);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
-    private class FOESCORE extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... voids) {
-            try{
-                Thread scoreThread = new Thread(new setFOEScore());
-                scoreThread.start();
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-            return null;
-        }
-    }
-    public class setFOEScore implements Runnable{
-        public void run(){
-            for(int i=14;i>=0;i--)
-            {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if (exit == false) {
+                if (round < 10) {
+                    Intent intent = new Intent(QuickPlay.this, Training.class);
+                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ScoreVariableName", score);
+                    bundle.putInt("RoundVariableName", round);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(QuickPlay.this, EndRounds.class);
+                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ScoreVariableName", score);
+                    bundle.putInt("RoundVariableName", round);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        TextView FoeScoreView = (TextView)findViewById(R.id.FoeScoreboard);
-                        FoeScoreView.setText("FOE: "+score2);
-                    }
-                });
-
             }
         }
     }
@@ -223,9 +202,11 @@ public class QuickPlay extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                //TextView timerView = (TextView) findViewById(R.id.counter);
+                //timerView.setText(time);
                 runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
+                    public void run() {                        ///Displays the message received
 
                         TextView timerView = (TextView) findViewById(R.id.counter);
                         timerView.setText(""+time);
@@ -246,7 +227,7 @@ public class QuickPlay extends AppCompatActivity {
             try {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
-//                ResultSet rs = stmt.executeQuery("select* from questions where id="+QuestionId);
+                //ResultSet rs = stmt.executeQuery("select* from questions where id="+QuestionId);
                 ResultSet rs = stmt.executeQuery("select* from questions");
                 int randomId = new Random().nextInt(4) + 1;
                 while(randomId!=0)
