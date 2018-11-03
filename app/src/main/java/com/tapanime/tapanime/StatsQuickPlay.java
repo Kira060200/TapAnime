@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,6 +28,12 @@ public class StatsQuickPlay extends AppCompatActivity {
         Thread sqlThread = new Thread(new setUpSQL());
         sqlThread.start();
     }
+    public void onSearch(View view){
+        Intent intent = new Intent(this, Loading.class);
+        intent.putExtra(Menu.EXTRA_MESSAGE, name);
+        startActivity(intent);
+        finish();
+    }
     public class setUpSQL implements Runnable{
         public void run () {
             try {
@@ -42,10 +46,6 @@ public class StatsQuickPlay extends AppCompatActivity {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select* from user where username='"+name+"'");
-                /*while (rs.next()&&ok==false) {
-                    if (username.equals(rs.getString(3)) && password.equals(rs.getString(4)))
-                        ok = true;
-                }*/
                 rs.next();
                 Log.d("CHECKSQLTAG",name);
                 matches_played=rs.getInt(6);
@@ -54,7 +54,7 @@ public class StatsQuickPlay extends AppCompatActivity {
                 Log.d("CHECKSQLTAG",String.valueOf((matches_played)));
                 runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {                        ///Displays the message received
+                    public void run() {
 
                         TextView MatchesView = (TextView) findViewById(R.id.textMatch);
                         TextView WonView = (TextView) findViewById(R.id.textWin);
