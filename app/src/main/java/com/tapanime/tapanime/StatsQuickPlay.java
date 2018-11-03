@@ -41,7 +41,7 @@ public class StatsQuickPlay extends AppCompatActivity {
             try {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select* from user where username='test'");
+                ResultSet rs = stmt.executeQuery("select* from user where username='"+name+"'");
                 /*while (rs.next()&&ok==false) {
                     if (username.equals(rs.getString(3)) && password.equals(rs.getString(4)))
                         ok = true;

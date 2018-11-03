@@ -46,7 +46,7 @@ public class SignUp extends AppCompatActivity {
             try {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("insert into user(email,username,password) values ('" + email + "' ,'" + username + "' , '" + password + "' );");
+                stmt.executeUpdate("insert into user(email,username,password,status,qp_matches_played,qp_matches_won,qp_matches_lost) values ('" + email + "' ,'" + username + "' , '" + password + "','0','0','0','0' );");
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 Log.d("SQLTag", "Failed to execute");
