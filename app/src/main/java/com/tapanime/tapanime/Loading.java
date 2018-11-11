@@ -71,6 +71,11 @@ public class Loading extends AppCompatActivity {
                         intent.putExtra(Menu.EXTRA_MESSAGE, name);
                         startActivity(intent);
                         Statement stamt = con.createStatement();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         stamt.executeUpdate("update user set status=" + "'0'" + " where username='" + name + "'");
                         finish();
                     }
