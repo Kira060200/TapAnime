@@ -160,7 +160,7 @@ public class QuickPlay extends AppCompatActivity {
             }
             if (exit == false) {
                 if (round < 10) {
-                    Intent intent = new Intent(QuickPlay.this, Training.class);
+                    Intent intent = new Intent(QuickPlay.this, QuickPlay.class);
                     intent.putExtra(Menu.EXTRA_MESSAGE, name);
                     Bundle bundle = new Bundle();
                     bundle.putInt("ScoreVariableName", score);
@@ -169,7 +169,7 @@ public class QuickPlay extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(QuickPlay.this, EndRounds.class);
+                    Intent intent = new Intent(QuickPlay.this, EndRoundsQuickPlay.class);
                     intent.putExtra(Menu.EXTRA_MESSAGE, name);
                     Bundle bundle = new Bundle();
                     bundle.putInt("ScoreVariableName", score);

@@ -27,6 +27,7 @@
         <activity android:name=".Loading"/>
         <activity android:name=".Training" />
         <activity android:name=".EndRounds" />
+        <activity android:name=".EndRoundsQuickPlay"/>
         <activity android:name=".HelpActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".MainChatActivity"></activity>
