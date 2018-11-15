@@ -19,7 +19,7 @@ import java.sql.Statement;
 import java.util.Random;
 
 public class QuickPlay extends AppCompatActivity {
-    String name,QuestionId="0";
+    String name,QuestionId="0",opponent;
     boolean ok=false;
     boolean correct=false;
     boolean clicked=false;
@@ -29,19 +29,23 @@ public class QuickPlay extends AppCompatActivity {
     int time=15;
     String question="Question Not Found?",answer1,answer2,answer3,CorrectAnswer;
     public static final String EXTRA_MESSAGE = "message";
+    public static final String EXTRA_MESSAGE2 = "message";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quickplay);
         Intent intent = getIntent();
-        name = intent.getStringExtra(EXTRA_MESSAGE);
         Bundle extras = intent.getExtras();
+        name = extras.getString("EXTRA_MESSAGE");
+        opponent = extras.getString("EXTRA_MESSAGE2");
         try {
             score = extras.getInt("ScoreVariableName", 0);
             round = extras.getInt("RoundVariableName", 0);
         }catch (Exception ex) {
             ex.printStackTrace();
         }
+        Log.d("LOADINGSQLTAG3",name);
+        Log.d("LOADINGSQLTAG4",opponent);
         Thread sqlThread = new Thread(new setUpSQL());
         sqlThread.start();
         while (ok==false)
@@ -155,23 +159,24 @@ public class QuickPlay extends AppCompatActivity {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             if (exit == false) {
                 if (round < 10) {
                     Intent intent = new Intent(QuickPlay.this, QuickPlay.class);
-                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    intent.putExtra("EXTRA_MESSAGE", name);
                     Bundle bundle = new Bundle();
+                    bundle.putString("EXTRA_MESSAGE2",opponent);
                     bundle.putInt("ScoreVariableName", score);
                     bundle.putInt("RoundVariableName", round);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(QuickPlay.this, EndRoundsQuickPlay.class);
-                    intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                    Intent intent = new Intent(QuickPlay.this, WaitingForOpponent.class);
+                    intent.putExtra("EXTRA_MESSAGE", name);
                     Bundle bundle = new Bundle();
+                    bundle.putString("EXTRA_MESSAGE2",opponent);
                     bundle.putInt("ScoreVariableName", score);
                     bundle.putInt("RoundVariableName", round);
                     intent.putExtras(bundle);

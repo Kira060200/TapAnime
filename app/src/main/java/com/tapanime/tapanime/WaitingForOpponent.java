@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,16 +11,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Loading extends AppCompatActivity {
+public class WaitingForOpponent extends AppCompatActivity {
     String name,opponent;
-    boolean matchFound=false;
+    int score=0;
+    int round=0;
+    boolean opponentFinished=false;
     public static final String EXTRA_MESSAGE = "message";
     public static final String EXTRA_MESSAGE2 = "message";
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
+        setContentView(R.layout.activity_waiting);
         Intent intent = getIntent();
-        name = intent.getStringExtra(EXTRA_MESSAGE);
+        name = intent.getStringExtra("EXTRA_MESSAGE");
+        Bundle extras = intent.getExtras();
+        opponent = extras.getString("EXTRA_MESSAGE2");
+        score = extras.getInt("ScoreVariableName", 0);
+        round = extras.getInt("RoundVariableName", 0);
         Log.d("CHECKSQLTAG",name);
         Thread sqlThread = new Thread(new setUpSQL());
         sqlThread.start();
@@ -39,8 +44,8 @@ public class Loading extends AppCompatActivity {
             try {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("update user set status="+"'1'"+" where username='"+name+"'");
-                Log.d("LOADINGSQLTAG1",name);
+                stmt.executeUpdate("update user set status="+"'2'"+" where username='"+name+"'");
+                Log.d("LOADINGSQLTAG",name);
                 con.close();
                 //check=true;
             } catch (SQLException ex) {
@@ -58,23 +63,23 @@ public class Loading extends AppCompatActivity {
                 Log.d("ClassTag", "Failed to find com.mysql.jdbc.Driver");
             }
             try {
-                while(matchFound==false) {
+                while(opponentFinished==false) {
                     Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers", "newuser", "1234");
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery("select* from user");
-                    while (rs.next() && matchFound == false) {
-                        if ((rs.getString(5)).equals("1") && !name.equals(rs.getString(3))) {
-                            matchFound = true;
-                            opponent=rs.getString(3);
+                    while (rs.next() && opponentFinished == false) {
+                        if ((rs.getString(5)).equals("2") && opponent.equals(rs.getString(3))) {
+                            opponentFinished = true;
                         }
                     }
-                    Log.d("MatchFound", String.valueOf(matchFound));
-                    if (matchFound) {
-                        Intent intent = new Intent(Loading.this, QuickPlay.class);
-                        Log.d("LOADINGSQLTAG2",name);
+                    Log.d("OpponentFinished", String.valueOf(opponentFinished));
+                    if (opponentFinished) {
+                        Intent intent = new Intent(WaitingForOpponent.this, EndRoundsQuickPlay.class);
+                        intent.putExtra("EXTRA_MESSAGE", name);
                         Bundle bundle = new Bundle();
-                        bundle.putString("EXTRA_MESSAGE", name);
                         bundle.putString("EXTRA_MESSAGE2",opponent);
+                        bundle.putInt("ScoreVariableName", score);
+                        bundle.putInt("RoundVariableName", round);
                         intent.putExtras(bundle);
                         startActivity(intent);
                         Statement stamt = con.createStatement();
@@ -90,8 +95,9 @@ public class Loading extends AppCompatActivity {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                Log.d("SQLTag", "Failed to execute SearchForOpponent");
+                Log.d("SQLTag", "Failed to execute OpponentSearch");
             }
         }
     }
 }
+
