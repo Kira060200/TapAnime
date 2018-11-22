@@ -64,9 +64,9 @@ public class StatsQuickPlay extends AppCompatActivity {
                         WonView.setText(String.valueOf("Won: "+matches_won));
                         LostView.setText(String.valueOf("Lost: "+matches_lost));
                         if(matches_played!=0) {
-                            ratio = (float) (matches_won / matches_played);
-                            String ratio2 = Float.toString(ratio);
-                            RatioView.setText("RATIO: "+ratio2);
+                            ratio = (float) matches_won / matches_played;
+                            RatioView.setText("RATIO: "+ratio);
+                            Log.d("RATIO", String.valueOf(ratio));
                         }
                     }
                 });

@@ -20,10 +20,12 @@ import java.util.Random;
 
 public class QuickPlay extends AppCompatActivity {
     String name,QuestionId="0",opponent;
+    public String optemp="0";
     boolean ok=false;
     boolean correct=false;
     boolean clicked=false;
     boolean exit=false;
+    boolean opponentFound=false;
     int score=0;
     int round=0;
     int time=15;
@@ -80,6 +82,11 @@ public class QuickPlay extends AppCompatActivity {
     public void setScore() {
         TextView messageView = (TextView)findViewById(R.id.Scoreboard);
         messageView.setText("Score:"+score);
+    }
+    public void setOpponentScore() {
+        TextView messageView = (TextView)findViewById(R.id.FoeScoreboard);
+        messageView.setText("FOE:"+optemp);
+        Log.d("OPTEMP",optemp);
     }
     public void setQuestion() {
         TextView messageView = (TextView)findViewById(R.id.textQuestion);
@@ -215,6 +222,7 @@ public class QuickPlay extends AppCompatActivity {
 
                         TextView timerView = (TextView) findViewById(R.id.counter);
                         timerView.setText(""+time);
+                        setOpponentScore();
                     }
                 });
 
@@ -260,6 +268,18 @@ public class QuickPlay extends AppCompatActivity {
                     answer3 = rs.getString(5);
                 }
                 ok=true;
+                Statement stmt2 = con.createStatement();
+                stmt2.executeUpdate("update user set temp="+score+" where username='"+name+"'");
+                Statement stmt3 = con.createStatement();
+                ResultSet rs2 = stmt3.executeQuery("select* from user");
+                while (rs2.next() && opponentFound == false) {
+                    if (opponent.equals(rs2.getString(3))) {
+                        opponentFound = true;
+                        optemp = rs2.getString(9);
+                    }
+                }
+                Log.d("OPTEMP",optemp);
+                con.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 Log.d("SQLTag", "Failed to execute 2");
