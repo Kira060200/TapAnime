@@ -17,7 +17,7 @@ public class EndRoundsQuickPlay extends AppCompatActivity {
     int score=0;
     int round=0;
     boolean playerFound,opponentFound;
-    String matchCount,victoryCount,looseCount;
+    String matchCount,victoryCount,looseCount,temp;
     public static final String EXTRA_MESSAGE = "message";
     public static final String EXTRA_MESSAGE2 = "message";
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,8 @@ public class EndRoundsQuickPlay extends AppCompatActivity {
         round = extras.getInt("RoundVariableName", 0);
         Thread UpS = new Thread(new UpdateStats());
         UpS.start();
+        Thread UpSO = new Thread(new UpdateOpponent());
+        UpSO.start();
         setRound();
     }
     public void setRound() {
@@ -55,6 +57,7 @@ public class EndRoundsQuickPlay extends AppCompatActivity {
                             matchCount = rs.getString(6);
                             victoryCount = rs.getString(7);
                             looseCount = rs.getString(8);
+                            temp = rs.getString(9);
                         }
                     }
                 Statement stamt = con.createStatement();
@@ -77,16 +80,26 @@ public class EndRoundsQuickPlay extends AppCompatActivity {
                 Log.d("ClassTag", "Failed to find com.mysql.jdbc.Driver");
             }
             try {
+                String optemp="";
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers", "newuser", "1234");
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery("select* from user");
                 while (rs.next() && opponentFound == false) {
                     if (opponent.equals(rs.getString(3))) {
                         opponentFound = true;
-                        matchCount = rs.getString(6);
-                        victoryCount = rs.getString(7);
-                        looseCount = rs.getString(8);
+                        optemp = rs.getString(9);
                     }
+                }
+                if(Integer.valueOf(optemp)<Integer.valueOf(temp)){
+                    Statement stbmt = con.createStatement();
+                    int wins= Integer.parseInt(victoryCount);
+                    wins++;
+                    stbmt.executeUpdate("update user set qp_matches_won=" + (wins) + " where username='" + name + "'");
+                } else{
+                    Statement stbmt = con.createStatement();
+                    int lost= Integer.parseInt(looseCount);
+                    lost++;
+                    stbmt.executeUpdate("update user set qp_matches_lost=" + (lost) + " where username='" + name + "'");
                 }
                 con.close();
             } catch (SQLException ex) {

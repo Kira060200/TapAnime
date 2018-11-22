@@ -45,6 +45,7 @@ public class WaitingForOpponent extends AppCompatActivity {
                 Connection con = DriverManager.getConnection("jdbc:mysql://192.168.0.50:3306/chatusers","newuser","1234");
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate("update user set status="+"'2'"+" where username='"+name+"'");
+                stmt.executeUpdate("update user set temp="+score+" where username='"+name+"'");
                 Log.d("LOADINGSQLTAG",name);
                 con.close();
                 //check=true;
