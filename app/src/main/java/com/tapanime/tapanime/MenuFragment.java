@@ -44,6 +44,15 @@ public class MenuFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Button Compbtn = (Button) v.findViewById(R.id.button4);
+        Compbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), StatsCompPlay.class);
+                intent.putExtra(Menu.EXTRA_MESSAGE, name);
+                startActivity(intent);
+            }
+        });
                 return v;
     }
 }
