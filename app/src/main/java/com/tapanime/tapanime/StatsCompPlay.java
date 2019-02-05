@@ -21,7 +21,7 @@ public class StatsCompPlay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats_competitive;
+        setContentView(R.layout.activity_stats_competitive);
         Intent intent = getIntent();
         name = intent.getStringExtra(EXTRA_MESSAGE);
         Log.d("CHECKSQLTAG",name);

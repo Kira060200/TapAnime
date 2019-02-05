@@ -180,7 +180,7 @@ public class CompetitivePlay extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(CompetitivePlay.this, WaitingForOpponent.class);
+                    Intent intent = new Intent(CompetitivePlay.this, WaitingForOpponentComp.class);
                     intent.putExtra("EXTRA_MESSAGE", name);
                     Bundle bundle = new Bundle();
                     bundle.putString("EXTRA_MESSAGE2",opponent);

@@ -23,12 +23,17 @@
         <activity android:name=".Menu" />
         <activity android:name=".Social" />
         <activity android:name=".QuickPlay"/>
+        <activity android:name=".CompetitivePlay"/>
         <activity android:name=".StatsQuickPlay"/>
+        <activity android:name=".StatsCompPlay"/>
         <activity android:name=".Loading"/>
+        <activity android:name=".LoadingComp"/>
         <activity android:name=".Training" />
         <activity android:name=".EndRounds" />
         <activity android:name=".EndRoundsQuickPlay"/>
+        <activity android:name=".EndRoundsCompPlay"/>
         <activity android:name=".WaitingForOpponent"/>
+        <activity android:name=".WaitingForOpponentComp"/>
         <activity android:name=".HelpActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".MainChatActivity"></activity>
