@@ -65,7 +65,18 @@ public class StatsCompPlay extends AppCompatActivity {
                         LostView.setText(String.valueOf("Lost: "+matches_lost));
                         if(matches_played!=0) {
                             ratio = (float) matches_won / matches_played;
-                            RatioView.setText("RATIO: "+ratio);
+                            if(ratio<0.2)
+                            RatioView.setText("RANK: PLASTIC");
+                            else if(ratio<0.3)
+                                RatioView.setText("RANK: BRONZE");
+                            else if (ratio<0.4)
+                                RatioView.setText("RANK: SILVER");
+                            else if (ratio<0.666)
+                                RatioView.setText("RANK: GOLD");
+                            else if (ratio<0.8)
+                                RatioView.setText("RANK: Platinum");
+                            else if(ratio==1)
+                                RatioView.setText("RANK: Intergalactic Weeb");
                             Log.d("RATIO", String.valueOf(ratio));
                         }
                     }
