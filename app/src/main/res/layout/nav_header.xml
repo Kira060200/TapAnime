@@ -31,17 +31,12 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_name"
-            android:textSize="25dp" />
+            android:textSize="35dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,11 +73,6 @@
             android:text="Honor Level"
             android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Virginity"
-            android:textSize="20dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

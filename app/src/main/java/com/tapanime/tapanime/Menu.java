@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
+import android.widget.TextView;
 
 public class Menu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     String name;
@@ -34,6 +35,9 @@ public class Menu extends AppCompatActivity implements NavigationView.OnNavigati
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView text = (TextView) header.findViewById(R.id.username);
+        text.setText(name);
         navigationView.setNavigationItemSelectedListener(this);
         Fragment fragment = new MenuFragment();
         Bundle args = new Bundle();
