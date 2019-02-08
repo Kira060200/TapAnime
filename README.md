@@ -16,7 +16,7 @@ The app contains 3 main functions:
 *one more minigame coming soon
 
 
-Right now, it has only the single-player mode(you are asked a seris of questions, the questions are based on major anime titles). I am working on the quick-play mode and it should be available soon !
+Right now, it has single-player,qucikplay and competitive mode(you are asked a seris of questions, the questions are based on major anime titles).
 
 ### Screenshots
 
