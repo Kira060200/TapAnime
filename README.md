@@ -29,7 +29,7 @@ Right now, it has single-player,qucikplay and competitive mode(you are asked a s
 
 ### Documentation
 
-The [GitHub Wiki](https://github.com/Kira050200/TapAnime/wiki) contains links to my other repository where you can find the Server for this app!
+The [GitHub Wiki](https://github.com/Kira060200/TapAnime/wiki) contains links to my other repository where you can find the Server for this app!
 
 ### License
 
